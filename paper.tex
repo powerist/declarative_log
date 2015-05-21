@@ -1,0 +1,66 @@
+\documentclass{article}
+
+\usepackage{cite}
+
+\begin{document}
+\input{macro}
+
+\title{Declarative Data Analytic}
+\author{}
+
+\maketitle
+
+\section{Summary for \saf}
+\label{sec:saf}
+
+\subsection{Paper}
+\label{sec:safpaper}
+
+\paragraph{Overview.}
+The purpose of \saf\cite{arun2011} is to bridge the semantic gap between raw
+data and the user's high-level view of the system. \saf achieves the goal by
+introducing {\em behavior model} --- a logic-based abstraction that allows the user to
+concisely specify desired relationship between different events of the system --- along
+with a low-level implementation that maps user-defined behaviors (i.e., logic
+formulas) to satisfying log traces. 
+
+\paragraph{Implementation.}
+The implementation is composed of five components: 
+(1) knowledge base, which provides domain-specific knowledge pre-specified as behavior
+models; 
+(2) data normalizer, which normalizes data from different sources into unified
+events --- an internal data model for storage and query.
+(3) event storage, an SQL database storing events.
+(4) analysis engine, which takes a user-specified behavior model as input, and
+extracts the satisfying set of events (or event sequences) based on defined
+semantics.
+(5) presentation engine, an output system.
+
+\paragraph{Comments.}
+\begin{itemize}
+\item Is the specification for exact time comparison useful? Due to possible
+  clock shift between different devices in a distributed system, the timestamps
+  in logs extracted from different devices may not be comparable at all. I
+  believe relative time ordering makes more sense in a network.
+
+\paragraph{Questions.}
+\begin{itemize}
+\item What
+\end{itemize}
+  
+\end{itemize}
+
+
+\subsection{\saf tool}
+\label{sec:saftool}
+
+
+
+\bibliography{paper}{}
+\bibliographystyle{plain}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
