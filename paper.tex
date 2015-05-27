@@ -42,18 +42,47 @@ semantics.
   clock shift between different devices in a distributed system, the timestamps
   in logs extracted from different devices may not be comparable at all. I
   believe relative time ordering makes more sense in a network.
-
-\paragraph{Questions.}
-\begin{itemize}
-\item What
-\end{itemize}
-  
 \end{itemize}
 
 
 \subsection{\saf tool}
 \label{sec:saftool}
 
+\begin{itemize}
+\item Tutorial finished: I have tried the example TCP records on the \saf
+  website, and generated the traces that satisfy the three-way-handshake
+  behavior.
+\item Trying \saf on real-data now...
+\end{itemize}
+
+\subsection{A root cause localization model for large scale systems}
+\label{sec:rootcause}
+
+The paper presents a model capturing essential features of the root cause
+localization process. In the model, a system is modeled as a set of components
+that interact with each other. Observable behaviors of the system are modeled as
+quarks --- the smallest end-to-end observable unit of specific service. Each
+quark is composed of:
+(1) the set of components used by the quark (could be implemented as a list); and
+(2) a health result, signifying the failure or the success of the quark. (could
+be implemented as a boolean variable).
+
+Partial failure is modeled with probability: Given a component $C_i$,
+probability $p_i$ represents the failure probability of a quark that utilizes
+component $C_i$.
+
+The paper further defines the problem of root cause localization, which has two
+versions: deterministic version and statistical version. Only the deterministic
+version is relevant to our project: Given several quarks of the system, some of
+which succeed and others fail, estimate the set of components that could have partial
+failure i.e., list of components $C_i$ with $p_i > 0$.
+
+\paragraph{Comments}
+
+\begin{itemize}
+\item Is failure always modeled using probability? What are other possible
+  failure models?
+\end{itemize}
 
 
 \bibliography{paper}{}
