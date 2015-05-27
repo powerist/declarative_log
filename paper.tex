@@ -10,7 +10,7 @@
 
 \maketitle
 
-\section{Summary for \saf}
+\section{\saf}
 \label{sec:saf}
 
 \subsection{Paper}
@@ -48,11 +48,22 @@ semantics.
 \subsection{\saf tool}
 \label{sec:saftool}
 
+\paragraph{Progress.}
+
 \begin{itemize}
 \item Tutorial finished: I have tried the example TCP records on the \saf
   website, and generated the traces that satisfy the three-way-handshake
   behavior.
 \item Trying \saf on real-data now...
+\end{itemize}
+
+\paragraph{Questions:}
+
+\begin{itemize}
+\item Are GISP\_Original, Thin\_client\_environment and Tamagawa related data? 
+\item Do all of them contain anomalies? 
+\item What has been done to diagnose/solve the anomalies, if any?
+
 \end{itemize}
 
 \subsection{A root cause localization model for large scale systems}
@@ -84,6 +95,13 @@ failure i.e., list of components $C_i$ with $p_i > 0$.
   failure models?
 \end{itemize}
 
+\section{Project}
+\label{sec:project}
+
+\subsection{Goal}
+\label{sec:proj:goal}
+Help the user to define failure models of systems, so that the failure model
+could help identify the root cause of anomalies.
 
 \bibliography{paper}{}
 \bibliographystyle{plain}
