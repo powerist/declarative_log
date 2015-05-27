@@ -54,17 +54,12 @@ semantics.
 \item Tutorial finished: I have tried the example TCP records on the \saf
   website, and generated the traces that satisfy the three-way-handshake
   behavior.
-\item Trying \saf on real-data now...
+\item Trying \saf on real-data now... (Detailed information of the data is in
+  the email).
 \end{itemize}
 
 \paragraph{Questions:}
 
-\begin{itemize}
-\item Are GISP\_Original, Thin\_client\_environment and Tamagawa related data? 
-\item Do all of them contain anomalies? 
-\item What has been done to diagnose/solve the anomalies, if any?
-
-\end{itemize}
 
 \subsection{A root cause localization model for large scale systems}
 \label{sec:rootcause}
@@ -100,8 +95,38 @@ failure i.e., list of components $C_i$ with $p_i > 0$.
 
 \subsection{Goal}
 \label{sec:proj:goal}
-Help the user to define failure models of systems, so that the failure model
-could help identify the root cause of anomalies.
+% Help the user to define failure models of systems, so that the failure model
+% could help identify the root cause of anomalies.
+
+Develop a declarative language that allows the user to specify/query the root
+cause of a system anomaly, so that the user does not need to handle low-level
+logging data directly.
+
+\section{Meeting Log}
+\label{sec:meetlog}
+
+\subsection{5/27}
+
+We discussed about the skeleton of the project. The problem is much clearer
+after the meeting. The goal of the project, at this stage, is to develop a
+declarative language that helps a network administrator to specify/query the root cause of a
+system problem, given overwhelming log information.
+
+\paragraph{Questions}
+
+\begin{itemize}
+\item What are the current status of network diagnosis?
+\item What is a good abstraction of root cause analysis?
+\end{itemize}
+
+\section{Reading List}
+\label{sec:read}
+
+Troubleshooting Blackbox SDN Control Software with Minimal Causal
+Sequences. (link: http://www.eecs.berkeley.edu/~rcs/research/sts.pdf)
+
+Fault Management in Distributed Systems. (link:
+http://repository.upenn.edu/cgi/viewcontent.cgi?article=1960&context=cis_reports) 
 
 \bibliography{paper}{}
 \bibliographystyle{plain}
