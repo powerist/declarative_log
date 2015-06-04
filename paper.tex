@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{cite}
+\usepackage{url}
 
 \begin{document}
 \input{macro}
@@ -10,15 +11,122 @@
 
 \maketitle
 
-\section{\saf}
+
+\section{Project}
+\label{sec:project}
+
+\subsection{Motivation}
+\label{sec:motiv}
+
+Existing root cause analysis techniques assume the availability of a known
+causality model. However, a network administrator may not have a complete
+knowledge of all the causality relationships in the system (Examples?). In
+certain cases, the only available information is the logging history of a
+system. Therefore, a framework that allows the administrator to easily
+create, manipulate and query dependency information is of great help. The
+framework should also provide a friendly interface that fits the administrator's
+high-level understanding of the system. In addition, the framework should also
+enable the administrator to easily carry out root cause analysis, given the
+dependency information and the logging history.
+
+% \subsection{Goal}
+% \label{sec:proj:goal}
+% Help the user to define failure models of systems, so that the failure model
+% could help identify the root cause of anomalies.
+
+% Develop a declarative language that allows the user to specify/query the root
+% cause of a system anomaly, so that the user does not need to handle low-level
+% logging data directly.
+
+\section{Meeting Log}
+\label{sec:meetlog}
+
+\subsection{5/27}
+
+We discussed about the skeleton of the project. The problem is much clearer
+after the meeting. The goal of the project, at this stage, is to develop a
+declarative language that helps a network administrator to specify/query the root cause of a
+system problem, given overwhelming log information.
+
+\subsection{6/3}
+\label{sec:meeting:63}
+
+\paragraph{Progress}
+\begin{itemize}
+\item Read the paper ``A survey of fault localization techniques in computer
+networks'': They summarized a number of techniques that find the root cause of a
+system error with a given causality graph. 
+
+\item Read the paper ``Efficient Querying and Maintenance of Network Provenance at
+Internet-Scale'': They proposed a graph-based data structure to maintain network
+provenance, i.e., dependency relationship. Also, different forms of
+representation for specifying the causal relationship were given, such as
+algebraic representation and BDD.
+
+\item Scan through the NEC network data.
+\end{itemize}
+
+\paragraph{Meeting summary.}
+In the meeting, we further clarified the problem.
+
+In the current design, our framework takes two inputs:
+(1) a set of logs from the network (format undefined); and
+(2) a detected anomaly (format undefined).
+
+The output of the framework is the root cause that could explain the detected
+anomaly. The format of the root cause is also unknown now (could be an event or
+a set of events). 
+
+Within the framework, we have a library which stores behavior
+models (i.e., causal relationship). There will also be a root cause analysis
+engine that is responsible
+for generating the root cause based on the anomaly, the logs and the
+library. A possible design for the root cause analysis engine
+could be first to find the behavior models that have the anomaly as root---These
+models are called failure models for the anomaly---then the
+engine finds all log sequences satisfying the behavior model (we can
+leverage \saf{} for this part), and runs the root cause analysis algorithm on
+the log sequences found. 
+
+The behavior library needs to be specified by the user---it is almost impossible
+to infer the behavior models without human input---and a language is needed for
+the user to specify, manipulate, and query the library. The language could be any
+existing language, such as \saf{} and Datalog, or a newly designed one.
+
+\paragraph{To-do}
+\begin{itemize}
+\item More survey on the root cause analysis is needed. The focus would be on
+  (1) What's the current status of root cause analysis?; (2) whether anyone has
+  tried to manage causality as a database? If so, how did they do it?
+\item The real data is worth further exploration. Hopefully we can have more
+  insight from the data.
+\end{itemize}
+
+
+\section{Reading List}
+\label{sec:read}
+
+\begin{itemize}
+
+\item Troubleshooting Blackbox SDN Control Software with Minimal Causal
+Sequences. (link: \url{http://www.eecs.berkeley.edu/~rcs/research/sts.pdf})
+
+\item Fault Management in Distributed Systems. (link:
+\url{http://repository.upenn.edu/cgi/viewcontent.cgi?article=1960&context=cis_reports}) 
+
+\item A survey of fault localization techniques in computer networks. (link: \url{http://www.eecis.udel.edu/~sethi/papers/04/socp04.pdf})
+
+\end{itemize}
+
+\section{\saf{}}
 \label{sec:saf}
 
 \subsection{Paper}
 \label{sec:safpaper}
 
 \paragraph{Overview.}
-The purpose of \saf\cite{arun2011} is to bridge the semantic gap between raw
-data and the user's high-level view of the system. \saf achieves the goal by
+The purpose of \saf{}~\cite{arun2011} is to bridge the semantic gap between raw
+data and the user's high-level view of the system. \saf{} achieves the goal by
 introducing {\em behavior model} --- a logic-based abstraction that allows the user to
 concisely specify desired relationship between different events of the system --- along
 with a low-level implementation that maps user-defined behaviors (i.e., logic
@@ -45,7 +153,7 @@ semantics.
 \end{itemize}
 
 
-\subsection{\saf tool}
+\subsection{\saf{} Tool}
 \label{sec:saftool}
 
 \paragraph{Progress.}
@@ -54,7 +162,7 @@ semantics.
 \item Tutorial finished: I have tried the example TCP records on the \saf
   website, and generated the traces that satisfy the three-way-handshake
   behavior.
-\item Trying \saf on real-data now... (Detailed information of the data is in
+\item Trying \saf{} on real-data now... (Detailed information of the data is in
   the email).
 \end{itemize}
 
@@ -64,7 +172,7 @@ semantics.
 \subsection{A root cause localization model for large scale systems}
 \label{sec:rootcause}
 
-The paper presents a model capturing essential features of the root cause
+The paper (bib not found online) presents a model capturing essential features of the root cause
 localization process. In the model, a system is modeled as a set of components
 that interact with each other. Observable behaviors of the system are modeled as
 quarks --- the smallest end-to-end observable unit of specific service. Each
@@ -90,43 +198,7 @@ failure i.e., list of components $C_i$ with $p_i > 0$.
   failure models?
 \end{itemize}
 
-\section{Project}
-\label{sec:project}
 
-\subsection{Goal}
-\label{sec:proj:goal}
-% Help the user to define failure models of systems, so that the failure model
-% could help identify the root cause of anomalies.
-
-Develop a declarative language that allows the user to specify/query the root
-cause of a system anomaly, so that the user does not need to handle low-level
-logging data directly.
-
-\section{Meeting Log}
-\label{sec:meetlog}
-
-\subsection{5/27}
-
-We discussed about the skeleton of the project. The problem is much clearer
-after the meeting. The goal of the project, at this stage, is to develop a
-declarative language that helps a network administrator to specify/query the root cause of a
-system problem, given overwhelming log information.
-
-\paragraph{Questions}
-
-\begin{itemize}
-\item What are the current status of network diagnosis?
-\item What is a good abstraction of root cause analysis?
-\end{itemize}
-
-\section{Reading List}
-\label{sec:read}
-
-Troubleshooting Blackbox SDN Control Software with Minimal Causal
-Sequences. (link: http://www.eecs.berkeley.edu/~rcs/research/sts.pdf)
-
-Fault Management in Distributed Systems. (link:
-http://repository.upenn.edu/cgi/viewcontent.cgi?article=1960&context=cis_reports) 
 
 \bibliography{paper}{}
 \bibliographystyle{plain}
