@@ -66,6 +66,43 @@ algebraic representation and BDD.
 \item Scan through the NEC network data.
 \end{itemize}
 
+\paragraph{6/9}
+
+We further discussed about the contributions we can make in our project. It now
+seems that a promising direction is to explore efficient interactive causal
+relationship generation. The causal relationship may be heterogeneous---that is,
+the user can specify causal relationship at different level of granularity. Details can be found in 6/9 meeting slides.
+
+Future steps:
+
+\begin{itemize}
+\item Related work survey: Does there exist any work that provides similar
+  management?
+
+A: Causality of an event can be modeled as a directed tree. A causality group is a set of
+partial order, which can be represented as a DAG. The DAG can be implemented as
+an adjacency graph, stored in a database.
+\item Low-level operation of a command in the declarative language?
+
+A: 
+\begin{itemize}
+\item Insert($A \rightarrow B$): check if there is a path such that $B
+  \rightarrow A$. If
+not, add an adjacency link ($A \rightarrow B$) in the adjacent
+graph. Otherwise, raise an error.
+\item Delete($A \rightarrow B$): Delete the corresponding link in the adjacency
+  graph.
+\item Update($A \rightarrow B$ to $A \rightarrow C$): Delete($A \rightarrow B$)
+  followed by insert($A \rightarrow C$).
+\item Manipulate($A \rightarrow B$): Compose? Should also happen at the event level.
+\end{itemize}
+
+\item Details of the work flow: the steps the user could take to finish the
+  modeling.
+\item Connect SAF with ElasticSearch: decouple SAF from SQLite, and use restful
+  api as the query language.
+\end{itemize}
+
 \paragraph{Meeting summary.}
 In the meeting, we further clarified the problem.
 
