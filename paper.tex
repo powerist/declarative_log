@@ -2,6 +2,8 @@
 
 \usepackage{cite}
 \usepackage{url}
+\usepackage[normalem]{ulem}
+\usepackage{color}
 
 \begin{document}
 \input{macro}
@@ -84,7 +86,7 @@ partial order, which can be represented as a DAG. The DAG can be implemented as
 an adjacency graph, stored in a database.
 \item Low-level operation of a command in the declarative language?
 
-A: 
+A:
 \begin{itemize}
 \item Insert($A \rightarrow B$): check if there is a path such that $B
   \rightarrow A$. If
@@ -118,17 +120,20 @@ Within the framework, we have a library which stores behavior
 models (i.e., causal relationship). There will also be a root cause analysis
 engine that is responsible
 for generating the root cause based on the anomaly, the logs and the
-library. A possible design for the root cause analysis engine
+library. 
+(\textcolor{red}{Root cause analysis engine is only used for case study.6/24}) 
+\sout{A possible design for the root cause analysis engine
 could be first to find the behavior models that have the anomaly as root---These
 models are called failure models for the anomaly---then the
 engine finds all log sequences satisfying the behavior model (we can
 leverage \saf{} for this part), and runs the root cause analysis algorithm on
-the log sequences found. 
+the log sequences found. }
 
-The behavior library needs to be specified by the user---it is almost impossible
+The behavior library needs to be specified by the user (\textcolor{red}{or the
+  domain-specific expert. 6/25}) ---it is almost impossible
 to infer the behavior models without human input---and a language is needed for
-the user to specify, manipulate, and query the library. The language could be any
-existing language, such as \saf{} and Datalog, or a newly designed one.
+the user to specify, manipulate, and query the library. \sout{The language could be any
+existing language, such as \saf{} and Datalog, or a newly designed one.}
 
 \paragraph{To-do}
 \begin{itemize}
@@ -139,6 +144,99 @@ existing language, such as \saf{} and Datalog, or a newly designed one.
   insight from the data.
 \end{itemize}
 
+\paragraph{6/24}
+
+In today's meeting, I gave a survey on three commercial solutions for root
+cause analysis through log
+analytics---namely HP solution, CA technology solution and IBM solution. Among
+the three solutions, HP solution provides guidance on the work flow
+for root cause analysis. CA technology is similar to SAF, and their event rule
+idea is helpful in our project. IBM solution, however, is closer to a
+search-filter analytic tool, which allows the administrator to plot different
+statistical graphs based on the logs. More details can be found on the slides
+for the weekly meeting on June 24.
+
+The design of the declarative language for our project was further discussed in
+the meeting. The language should extend the design of SAF. In SAF, a behavior is merely
+a set of events. This is not enough for a complex and heterogeneous computing
+environment. In such an environment, users' knowledge of the system could vary among different
+levels. For example, a domain-specific expert could be more familiar with a
+certain types of devices, such as database servers or email servers, while a
+network administrator could know more about the protocol-level information along with
+topological information. Our language should provide the opportunity for
+different users to specify their specific knowledge of the system, and manages these
+knowledge effectively in the storage, so that root cause analysis can be
+performed with these knowledge.
+
+
+\paragraph{To-do}
+
+\begin{itemize}
+\item Detailed work flow of the user.
+\item Connect SAF with ElasticSearch: decouple SAF from SQLite, and use restful
+  api as the query language.
+\item Survey on languages that allow the user to specify causality relationship
+  on different granularity.
+A: Ontology is an interesting concept. 
+\end{itemize}
+
+\paragraph{7/1}
+
+In today's meeting, we clarify the work flow of performing root cause analysis
+in a typical network, and the problem to be targeted at during my summer
+internship. Additionally, we discussed about the next few steps of the project
+towards our goal.
+
+\begin{itemize}
+\item {\bf Word flow.} The work flow of the root cause analysis is as follows:
+  \begin{itemize}
+  \item The user reports an abnormal symptoms to the network administrator. The
+  abnormal symptoms include high latency or no response of a specific
+  service. The user usually specify such symptoms informally, such as in natural
+  languages.
+  \item Next, the network administrator would start the root cause analysis by
+  collecting log traces from all the devices in the network. Since devices could
+  be manufactured by different vendors, the logs could be in a variety of forms.
+  \item To allow for computer-aided log analysis, the network administrator should
+  be able to convert logs of different formats into a unified one
+  (e.g. relational database).
+  \item With the unified log database, the network administrator should be
+  able to specify the symptoms reported by the user rigorously. A failure symptom
+  could be formally defined as a set of database entries, or events. 
+  \item In addition to the symptom specification and the log traces, the network
+  administrator still needs network provenance (i.e., dependency relationship
+  between events or set of events) to help identify the root cause
+  analysis. In the usual scenario of log analytics, the network provenance is not
+  given beforehand. The network administrator needs to infer the provenance
+  information based on his domain-specific knowledge, such as topological
+  layout.
+  \item The network administrator would then run the root cause analysis algorithm
+  based on the given symptom and the provenance information to identify the root
+  cause of the system anomaly. 
+  \end{itemize}
+
+\item {\bf Targeted problem.}
+  The targeted problem scope of our project is the part of provenance knowledge
+  maintenance. It is assumed that the log has been organized into a uniform format
+  (e.g., relational database), and basic database queries are available (e.g.,
+  through SQL language). The goal is to have a framework that allows the user to
+  specify, query, validate and operate on semantic provenance --- The semantic level could
+  be flexible \textcolor{red}{more clear on what semantic level means}.
+
+  There are several requirements worth considering:
+  \begin{itemize}
+  \item The framework should be able to map the specified semantic provenance to
+    corresponding low-level semantics, where the lowest-level semantics is the
+    log traces. 
+  
+  \item The knowledge base should have categorization. For example, topological
+    knowledge should be differentiated from protocol knowledge. Protocol
+    knowledge could be reused across systems, but topological knowledge cannot.
+
+  \item 
+  \end{itemize}
+
+  \end{itemize}
 
 \section{Reading List}
 \label{sec:read}
@@ -151,7 +249,26 @@ Sequences. (link: \url{http://www.eecs.berkeley.edu/~rcs/research/sts.pdf})
 \item Fault Management in Distributed Systems. (link:
 \url{http://repository.upenn.edu/cgi/viewcontent.cgi?article=1960&context=cis_reports}) 
 
-\item A survey of fault localization techniques in computer networks. (link: \url{http://www.eecis.udel.edu/~sethi/papers/04/socp04.pdf})
+\item A survey of fault localization techniques in computer networks. (link:
+  \url{http://www.eecis.udel.edu/~sethi/papers/04/socp04.pdf})
+
+\item Root cause analysis in market products:
+
+  \begin{itemize}
+  \item The 4 Building Blocks of Root Cause Analysis
+    (\url{http://apmdigest.com/the-4-building-blocks-of-root-cause-analysis}): The
+    best practice is to unify the three layers into a single infrastructure
+    management dashboard, so you can visually correlate all three levels of
+    analytics in an efficient workflow.
+  \item HP Operations Analytics (\url{https://www.youtube.com/watch?v=d3_r9-tFISk})
+  \item Hui Zhang's email (6/15)
+  \end{itemize}
+
+\item Knowledge Discovery in Databases: An Overview 
+(\url{https://mitpress.mit.edu/sites/default/files/titles/content/9780262660709_sch_0001.pdf})
+
+\item Semantic Data Access to Relational Databases: IBM research
+(\url{http://www.w3.org/wiki/images/9/90/Rdb2RdfXG$SeDA2RDB2RDFXG.pdf})
 
 \end{itemize}
 
