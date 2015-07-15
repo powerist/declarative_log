@@ -68,7 +68,8 @@ algebraic representation and BDD.
 \item Scan through the NEC network data.
 \end{itemize}
 
-\paragraph{6/9}
+\subsection{6/9}
+\label{sec:meeting:69}
 
 We further discussed about the contributions we can make in our project. It now
 seems that a promising direction is to explore efficient interactive causal
@@ -144,7 +145,8 @@ existing language, such as \saf{} and Datalog, or a newly designed one.}
   insight from the data.
 \end{itemize}
 
-\paragraph{6/24}
+\subsection{6/24}
+\label{sec:meeting:624}
 
 In today's meeting, I gave a survey on three commercial solutions for root
 cause analysis through log
@@ -180,7 +182,8 @@ performed with these knowledge.
 A: Ontology is an interesting concept. 
 \end{itemize}
 
-\paragraph{7/1}
+\subsection{7/1}
+\label{sec:meeting:624}
 
 In today's meeting, we clarify the work flow of performing root cause analysis
 in a typical network, and the problem to be targeted at during my summer
@@ -233,10 +236,58 @@ towards our goal.
     knowledge should be differentiated from protocol knowledge. Protocol
     knowledge could be reused across systems, but topological knowledge cannot.
 
-  \item 
   \end{itemize}
 
+\end{itemize}
+
+\paragraph{Future work}
+Complete a root cause analysis case study on OpenStack.
+
+\subsection{7/8}
+\label{sec:meeting:678}
+
+\paragraph{Thought}
+I wonder if component-level dependency can also be specified in \saf{}. Because no
+matter what dependency level we focus on, we still need to determine the
+low-level logs by specifying the conditions over their fields. The higher level the
+specification is, the more wildcard we are inserting into the specification.
+
+For example, if we would like to specify a component-level dependency: $vm_1
+\rightarrow vm_2$, we need to make it clear what logs are instances of $vm_1$
+and $vm_2$. To do this, a candidate specification would be ``machine\_name =
+$vm_1$. This specification is still in the scope of \saf{}. Based on this, the
+specification over the logs is similar to specification over the directory paths
+in the file system.
+
+\paragraph{Todo}
+
+\begin{itemize}
+\item Finish the manual root cause analysis case study.
+\item Meanwhile, clarify the work flow of the user.
+\item Find as much automation as possible in the work flow. For example,
+  automatic model generation.
+\end{itemize}
+
+\section{Root cause analysis case studies}
+Manual root cause analysis case studies.
+
+\begin{itemize}
+\item Backtracking the execution according to causality relationship
+  \begin{itemize}
+  \item Identify the normal execution logs to explore: osloganal/data/logs/new\_testbed24/novadelete/delete-0.log
+  \item Convert the log in JSON into an SQLite3 database. (done)
+  \item Obtain domain-specific knowledge about OpenStack and the execution:
+    data/models(Filtered Message Sequence)
+  \item Specify the domain-specific knowledge in SAF --- on different levels ---
+    and found corresponding traces.
+    \begin{itemize}
+    \item Level 1: event dependency
+    \item Level 2: component dependency
+    \end{itemize}
+  \item Build the causality graph for different levels.
   \end{itemize}
+\item Root cause detection of failure symptoms based on the backtracking technique
+\end{itemize}
 
 \section{Reading List}
 \label{sec:read}
