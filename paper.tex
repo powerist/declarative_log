@@ -8,7 +8,7 @@
 \begin{document}
 \input{macro}
 
-\title{Declarative Data Analytic}
+\title{Knowledge discovery in networked systems}
 \author{}
 
 \maketitle
@@ -255,7 +255,7 @@ specification is, the more wildcard we are inserting into the specification.
 For example, if we would like to specify a component-level dependency: $vm_1
 \rightarrow vm_2$, we need to make it clear what logs are instances of $vm_1$
 and $vm_2$. To do this, a candidate specification would be ``machine\_name =
-$vm_1$. This specification is still in the scope of \saf{}. Based on this, the
+$vm_1$''. This specification is still in the scope of \saf{}. Based on this, the
 specification over the logs is similar to specification over the directory paths
 in the file system.
 
@@ -268,14 +268,62 @@ in the file system.
   automatic model generation.
 \end{itemize}
 
+\subsection{7/29}
+\label{sec:meeting:729}
+
+In today's meeting, we discussed about the case study of Openstack logs. Based
+on the discussion, further steps were proposed to continue the project.
+
+\paragraph{Todo}
+\begin{itemize}
+\item Finish the case study of novadelete.
+\item Re-do the case study on novaboot.
+\item Develop back-tracking and forward-tracking utilities:
+  back-tracking(event\_seed, model) = matched part of the model.
+\item Develop component-level behavior model.
+\item Develop NFA-based specification of behavior models.
+\end{itemize}
+
 \section{Root cause analysis case studies}
 Manual root cause analysis case studies.
 
 \begin{itemize}
-\item Backtracking the execution according to causality relationship
+\item Use SAF to analyze Openstack logs.
   \begin{itemize}
   \item Identify the normal execution logs to explore: osloganal/data/logs/new\_testbed24/novadelete/delete-0.log
   \item Convert the log in JSON into an SQLite3 database. (done)
+  \item Convert the log in JSON into an event sqlite3 database required by \saf{}.
+    \begin{itemize}
+    \item The schema of the database should satisfy the format of the event in
+      \saf{}.
+      
+      As stated in ``SAF-trunk/plugins/p2db/eventattrs.c'' in p2db plugin of \saf{}: ``Each line of
+      attribute is of the following format $\langle$attributename,
+      attributetype$\rangle$ ... Each event specification must have the
+      following attributes at a minimum "eventno integer", "eventtype text",
+      "timestamp integer",	"timestampusec integer", "origin text" ''
+
+      Bug: During the test of SAF, when the wildcard symbol---e.g.,
+      port=\$1---is used in the behavior model, dependent events
+      whose field values are 0 are not output by SAF. However, if the value of a
+      field is explicitly designated as 0, dependent events will be correctly
+      output.
+
+      Fix: the problem lie in the file
+      ``SAF-trunk/framework/common/sqlutils.py''. In line 76, SAF tests the
+      validity of a value by ``if (newv):'', this causes the problem that when
+      the value of a field is 0 in dependent events, it will not be
+      processed. On the other hand, if the user explicitly specifies the value
+      of the field as 0, SAF will convert the value into string ``0'', which
+      is accepted by the conditional.
+    \item The information extracted from JSON is of coarse granularity. Further
+      parsing is needed to obtain detailed information, such as IP addresses,
+      device ids.
+      
+    \item Sort the log information according to logs' timestamps. (The original
+      log is already in the correct order)
+    \end{itemize}
+
   \item Obtain domain-specific knowledge about OpenStack and the execution:
     data/models(Filtered Message Sequence)
   \item Specify the domain-specific knowledge in SAF --- on different levels ---

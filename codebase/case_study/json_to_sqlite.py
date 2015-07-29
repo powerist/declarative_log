@@ -60,12 +60,92 @@ log_templates = [
             #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] OS_IP "GET /vOS_NUMBER/OS_UUID_PLAIN/servers/OS_UUID HTTP/OS_NUMBER" status: OS_NUMBER len: OS_NUMBER time: OS_NUMBER"
             'body': "\[req-([\w\-]+) (\w+) (\w+)\] (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) \\\"GET /v(\d+)/(\w+)/servers/([\w\-]+) HTTP/(\d+\.\d+)\\\" status: (\d+) len: (\d+) time: (\d+\.\d+)",
             'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
-        }
+        },
+        {
+            'id': 25, 
+            #'body': "[-] Lifecycle event OS_NUMBER on VM OS_UUID"
+            'body': "\[-\] Lifecycle event (\d+) on VM ([\w\-]+)",
+            'variables': ['OS_NUMBER', 'OS_UUID']
+        },
+        {
+            'id': 27, 
+            #'body': "[-] image OS_UUID at (/var/lib/nova/instances/_base/OS_UUID_PLAINOS_NUMBERcbfOS_NUMBER): checking"
+            'body': "\[-\] image ([\w\-]+) at \(/var/lib/nova/instances/_base/(\w+)(\d+)cbf(\d+)\): checking",
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER']
+        },
+        {
+            'id': 28, 
+            #'body': "[-] image OS_UUID at (/var/lib/nova/instances/_base/OS_UUID_PLAINOS_NUMBERcbfOS_NUMBER): in use: on this node OS_NUMBER local, OS_NUMBER on other nodes sharing this instance storage"
+            'body': "\[-\] image ([\w\-]+) at \(/var/lib/nova/instances/_base/(\w+)(\d+)cbf(\d+)\): in use: on this node (\d+) local, (\d+) on other nodes sharing this instance storage",
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
+        },
+        {
+            'id': 29, 
+            #'body': "[-] Active base files: /var/lib/nova/instances/_base/OS_UUID_PLAINOS_NUMBERcbfOS_NUMBER"
+            'body': "\[-\] Active base files: /var/lib/nova/instances/_base/(\w+)(\d+)cbf(\d+)",
+            'variables': ['OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER']
+        },
+        {
+            'id': 30, 
+            #'body': "Updating bandwidth usage cache"
+            'body': "Updating bandwidth usage cache",
+            'variables': []
+        },
+        {
+            'id': 33, 
+            #'body': "[-] [instance: OS_UUID] During sync_power_state the instance has a pending task. Skip.Updating bandwidth usage cache"
+            'body': "\[-\] \[instance: ([\w\-]+)\] During sync_power_state the instance has a pending task. Skip.",
+            'variables': ['OS_UUID']
+        },
+        {
+            'id': 34, 
+            #'body': "[-] Found OS_NUMBER in the database and OS_NUMBER on the hypervisor."
+            'body': "\[-\] Found (\d+) in the database and (\d+) on the hypervisor.",
+            'variables': ['OS_NUMBER', 'OS_NUMBER']
+        },
+        {
+            'id': 38, 
+            #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] OS_IP "GET /vOS_NUMBER/OS_UUID_PLAIN/servers HTTP/OS_NUMBER" status: OS_NUMBER len: OS_NUMBER time: OS_NUMBER"
+            'body': "\[req-([\w\-]+) (\w+) (\w+)\] (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) \\\"GET /v(\d+)/(\w+)/servers HTTP/(\d+\.\d+)\\\" status: (\d+) len: (\d+) time: (\d+\.\d+)",
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
+        },
+        {
+            'id': 39, 
+            #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] OS_IP "DELETE /vOS_NUMBER/OS_UUID_PLAIN/servers/OS_UUID HTTP/OS_NUMBER" status: OS_NUMBER len: OS_NUMBER time: OS_NUMBER"
+            'body': "\[req-([\w\-]+) (\w+) (\w+)\] (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) \\\"DELETE /v(\d+)/(\w+)/servers/([\w\-]+) HTTP/(\d+\.\d+)\\\" status: (\d+) len: (\d+) time: (\d+\.\d+)",
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
+        },
+        {
+            'id': 40, 
+            #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] [instance: OS_UUID] Terminating instance"
+            'body': "\[req-([\w\-]+) (\w+) (\w+)\] \[instance: ([\w\-]+)\] Terminating instance",
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_UUID']
+        },
+        {
+            'id': 41, 
+            #'body': "[-] [instance: OS_UUID] Instance destroyed successfully."
+            'body': "\[-\] \[instance: ([\w\-]+)\] Instance destroyed successfully.",
+            'variables': ['OS_UUID']
+        },
+        {
+            'id': 42, 
+            #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] [instance: OS_UUID] Deleting instance files /var/lib/nova/instances/OS_UUID"
+            'body': "\[req-([\w\-]+) (\w+) (\w+)\] \[instance: ([\w\-]+)\] Deleting instance files /var/lib/nova/instances/([\w\-]+)",
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_UUID']
+        },
+        {
+            'id': 43, 
+            #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] [instance: OS_UUID] Deletion of /var/lib/nova/instances/OS_UUID complete"
+            'body': "\[req-([\w\-]+) (\w+) (\w+)\] \[instance: ([\w\-]+)\] Deletion of /var/lib/nova/instances/([\w\-]+) complete",
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_UUID']
+        }        
 ]
 
 
 # Create regular expression for log_templates
 for t in log_templates:
+    # print "template id"
+    # print t['id']
     t['regex'] = re.compile(t['body'])
 
 
@@ -102,7 +182,7 @@ saf_key_list = ["eventno integer",
 # test_key_list = ["test integer"]
 
 # SQL key list
-sql_key_list = saf_key_list + key_list
+sql_key_list = saf_key_list + key_list + ['template_id integer']
 # sql_key_list = saf_key_list + key_list + test_key_list
 sql_key_count = len(sql_key_list)
 sql_key_string = ', '.join(sql_key_list)
@@ -155,18 +235,24 @@ for cnt, log_entry in enumerate(traffic):
     saf_data_list.append(saf_origin)
 
     # Process Openstack data
+    id_match = False
+    temp_id = 0
     ops_data_list = []
     for key, data in log_entry.items():
         # TEST: Identify message template
         if key == "message_body":
-            print "message_body"
-            print data
+            # print "message_body"
+            # print data
             for t in log_templates:
                 matched = t['regex'].match(data)
                 if matched:
-                    print "Matched!ID: ", t['id']
+                    print "matched"
+                    print t['id']
+                    temp_id = t['id']
+                    id_match = True
                     break
-        # ops_data_list.append(data)
+        ops_data_list.append(data)
+    ops_data_list.append(temp_id)
 
     # # TEST: data list
     # test_data = cnt % 4 - 2
@@ -176,7 +262,8 @@ for cnt, log_entry in enumerate(traffic):
     # data_list = saf_data_list + ops_data_list + test_data_list
 
     # Execute the SQL statement
-    # cursor.execute(data_insertion, data_list)
+    if id_match == True:
+        cursor.execute(data_insertion, data_list)
 
 db_conn.commit()
 db_conn.close()
