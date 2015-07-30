@@ -59,7 +59,7 @@ log_templates = [
             'id': 13, 
             #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] OS_IP "GET /vOS_NUMBER/OS_UUID_PLAIN/servers/OS_UUID HTTP/OS_NUMBER" status: OS_NUMBER len: OS_NUMBER time: OS_NUMBER"
             'body': "\[req-([\w\-]+) (\w+) (\w+)\] (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) \\\"GET /v(\d+)/(\w+)/servers/([\w\-]+) HTTP/(\d+\.\d+)\\\" status: (\d+) len: (\d+) time: (\d+\.\d+)",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
+            'variables': ['OS_UUID2', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN2', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN3', 'OS_UUID', 'OS_NUMBER2', 'OS_NUMBER3', 'OS_NUMBER4', 'OS_NUMBER5']
         },
         {
             'id': 25, 
@@ -71,19 +71,19 @@ log_templates = [
             'id': 27, 
             #'body': "[-] image OS_UUID at (/var/lib/nova/instances/_base/OS_UUID_PLAINOS_NUMBERcbfOS_NUMBER): checking"
             'body': "\[-\] image ([\w\-]+) at \(/var/lib/nova/instances/_base/(\w+)(\d+)cbf(\d+)\): checking",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER']
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER2']
         },
         {
             'id': 28, 
             #'body': "[-] image OS_UUID at (/var/lib/nova/instances/_base/OS_UUID_PLAINOS_NUMBERcbfOS_NUMBER): in use: on this node OS_NUMBER local, OS_NUMBER on other nodes sharing this instance storage"
             'body': "\[-\] image ([\w\-]+) at \(/var/lib/nova/instances/_base/(\w+)(\d+)cbf(\d+)\): in use: on this node (\d+) local, (\d+) on other nodes sharing this instance storage",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER2', 'OS_NUMBER3', 'OS_NUMBER4']
         },
         {
             'id': 29, 
             #'body': "[-] Active base files: /var/lib/nova/instances/_base/OS_UUID_PLAINOS_NUMBERcbfOS_NUMBER"
             'body': "\[-\] Active base files: /var/lib/nova/instances/_base/(\w+)(\d+)cbf(\d+)",
-            'variables': ['OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER']
+            'variables': ['OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER2']
         },
         {
             'id': 30, 
@@ -101,25 +101,25 @@ log_templates = [
             'id': 34, 
             #'body': "[-] Found OS_NUMBER in the database and OS_NUMBER on the hypervisor."
             'body': "\[-\] Found (\d+) in the database and (\d+) on the hypervisor.",
-            'variables': ['OS_NUMBER', 'OS_NUMBER']
+            'variables': ['OS_NUMBER', 'OS_NUMBER2']
         },
         {
             'id': 38, 
             #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] OS_IP "GET /vOS_NUMBER/OS_UUID_PLAIN/servers HTTP/OS_NUMBER" status: OS_NUMBER len: OS_NUMBER time: OS_NUMBER"
             'body': "\[req-([\w\-]+) (\w+) (\w+)\] (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) \\\"GET /v(\d+)/(\w+)/servers HTTP/(\d+\.\d+)\\\" status: (\d+) len: (\d+) time: (\d+\.\d+)",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
+            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN2', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN3', 'OS_NUMBER2', 'OS_NUMBER3', 'OS_NUMBER4', 'OS_NUMBER5']
         },
         {
             'id': 39, 
             #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] OS_IP "DELETE /vOS_NUMBER/OS_UUID_PLAIN/servers/OS_UUID HTTP/OS_NUMBER" status: OS_NUMBER len: OS_NUMBER time: OS_NUMBER"
             'body': "\[req-([\w\-]+) (\w+) (\w+)\] (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) \\\"DELETE /v(\d+)/(\w+)/servers/([\w\-]+) HTTP/(\d+\.\d+)\\\" status: (\d+) len: (\d+) time: (\d+\.\d+)",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER', 'OS_NUMBER']
+            'variables': ['OS_UUID2', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN2', 'OS_IP', 'OS_NUMBER', 'OS_UUID_PLAIN3', 'OS_UUID', 'OS_NUMBER2', 'OS_NUMBER3', 'OS_NUMBER4', 'OS_NUMBER5']
         },
         {
             'id': 40, 
             #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] [instance: OS_UUID] Terminating instance"
             'body': "\[req-([\w\-]+) (\w+) (\w+)\] \[instance: ([\w\-]+)\] Terminating instance",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_UUID']
+            'variables': ['OS_UUID2', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN2', 'OS_UUID']
         },
         {
             'id': 41, 
@@ -131,13 +131,13 @@ log_templates = [
             'id': 42, 
             #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] [instance: OS_UUID] Deleting instance files /var/lib/nova/instances/OS_UUID"
             'body': "\[req-([\w\-]+) (\w+) (\w+)\] \[instance: ([\w\-]+)\] Deleting instance files /var/lib/nova/instances/([\w\-]+)",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_UUID']
+            'variables': ['OS_UUID2', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN2', 'OS_UUID', 'OS_UUID3']
         },
         {
             'id': 43, 
             #'body': "[req-OS_UUID OS_UUID_PLAIN OS_UUID_PLAIN] [instance: OS_UUID] Deletion of /var/lib/nova/instances/OS_UUID complete"
             'body': "\[req-([\w\-]+) (\w+) (\w+)\] \[instance: ([\w\-]+)\] Deletion of /var/lib/nova/instances/([\w\-]+) complete",
-            'variables': ['OS_UUID', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN', 'OS_UUID', 'OS_UUID']
+            'variables': ['OS_UUID2', 'OS_UUID_PLAIN', 'OS_UUID_PLAIN2', 'OS_UUID', 'OS_UUID3']
         }        
 ]
 
@@ -148,7 +148,7 @@ for t in log_templates:
     # print t['id']
     t['regex'] = re.compile(t['body'])
 
-
+# Open the json file and the database file
 json_file = "delete-0.log"
 sqlite_file = "delete.db"
 
@@ -171,6 +171,12 @@ for n,key in enumerate(key_list):
     column_prefix = "ops_"
     key_list[n] = column_prefix + column_name + " " + datatype
 
+# Extra columns
+template_col = 'template_id integer'
+uuid_col = 'uuid text'
+osip_col = 'ip text'
+extra_list = [template_col, uuid_col, osip_col]
+
 # SAF key list
 saf_key_list = ["eventno integer", 
                 "eventtype text", 
@@ -182,7 +188,7 @@ saf_key_list = ["eventno integer",
 # test_key_list = ["test integer"]
 
 # SQL key list
-sql_key_list = saf_key_list + key_list + ['template_id integer']
+sql_key_list = saf_key_list + key_list + extra_list
 # sql_key_list = saf_key_list + key_list + test_key_list
 sql_key_count = len(sql_key_list)
 sql_key_string = ', '.join(sql_key_list)
@@ -235,8 +241,9 @@ for cnt, log_entry in enumerate(traffic):
     saf_data_list.append(saf_origin)
 
     # Process Openstack data
-    id_match = False
     temp_id = 0
+    uuid = ''
+    osip = ''
     ops_data_list = []
     for key, data in log_entry.items():
         # TEST: Identify message template
@@ -246,13 +253,19 @@ for cnt, log_entry in enumerate(traffic):
             for t in log_templates:
                 matched = t['regex'].match(data)
                 if matched:
-                    print "matched"
-                    print t['id']
+                    # print "matched"
+                    # print t['id']
                     temp_id = t['id']
-                    id_match = True
+                    for idx, obj in enumerate(t['variables']):
+                        if obj == 'OS_UUID':
+                            uuid = matched.group(idx + 1)
+                        if obj == 'OS_IP':
+                            osip = matched.group(idx + 1)
                     break
         ops_data_list.append(data)
     ops_data_list.append(temp_id)
+    ops_data_list.append(uuid)
+    ops_data_list.append(osip)    
 
     # # TEST: data list
     # test_data = cnt % 4 - 2
@@ -262,8 +275,7 @@ for cnt, log_entry in enumerate(traffic):
     # data_list = saf_data_list + ops_data_list + test_data_list
 
     # Execute the SQL statement
-    if id_match == True:
-        cursor.execute(data_insertion, data_list)
+    cursor.execute(data_insertion, data_list)
 
 db_conn.commit()
 db_conn.close()

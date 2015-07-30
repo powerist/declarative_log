@@ -309,7 +309,7 @@ Manual root cause analysis case studies.
       field is explicitly designated as 0, dependent events will be correctly
       output.
 
-      Fix: the problem lie in the file
+      Fix: the problem lies in the file
       ``SAF-trunk/framework/common/sqlutils.py''. In line 76, SAF tests the
       validity of a value by ``if (newv):'', this causes the problem that when
       the value of a field is 0 in dependent events, it will not be
