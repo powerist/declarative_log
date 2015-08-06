@@ -288,7 +288,8 @@ on the discussion, further steps were proposed to continue the project.
 Manual root cause analysis case studies.
 
 \begin{itemize}
-\item Use SAF to analyze Openstack logs.
+\item Use SAF to analyze Openstack logs. All related files can be found under
+  ``declarative-log-analytics/codebase/case_study/novaboot''.
   \begin{itemize}
   \item Identify the normal execution logs to explore: osloganal/data/logs/new\_testbed24/novadelete/delete-0.log
   \item Convert the log in JSON into an SQLite3 database. (done)
@@ -317,8 +318,8 @@ Manual root cause analysis case studies.
       of the field as 0, SAF will convert the value into string ``0'', which
       is accepted by the conditional.
     \item The information extracted from JSON is of coarse granularity. Further
-      parsing is needed to obtain detailed information, such as IP addresses,
-      device ids.
+      parse values in the ``message\_body'' to extract OS\_UUID, OS\_IP and
+      template id, and store them in the event table.(done)
       
     \item Sort the log information according to logs' timestamps. (The original
       log is already in the correct order)
@@ -326,15 +327,37 @@ Manual root cause analysis case studies.
 
   \item Obtain domain-specific knowledge about OpenStack and the execution:
     data/models(Filtered Message Sequence)
+  \item Understand syntax of \saf{} behavior models
+    \begin{itemize}
+    \item Read README files
+    \item Read the source parser
+    \end{itemize}
   \item Specify the domain-specific knowledge in SAF --- on different levels ---
-    and found corresponding traces.
+    and found corresponding traces. (done with event-level behavior models)
     \begin{itemize}
     \item Level 1: event dependency
     \item Level 2: component dependency
     \end{itemize}
-  \item Build the causality graph for different levels.
+  \item \sout{Build the causality graph for different levels.}
   \end{itemize}
-\item Root cause detection of failure symptoms based on the backtracking technique
+\item \sout{Root cause detection of failure symptoms based on the backtracking technique}
+\end{itemize}
+
+\section{Unsolved problems}
+\label{sec:usp}
+
+We list a number of identified but unsolved problems of the project.
+
+\begin{itemize}
+\item Results given by \saf{} do not always meet expectation. For example, if a
+behavior model specifies chained dependency for a specific field, \saf{} does
+not give a sequence of events, but returns the same event for each matched state
+model.
+
+\item In the log trace of boot-0.log, the message of template 17 and the message
+  of template 15 share the same timestamp. This causes the log trace to match no
+  template in the novaboot models. (17 and 15 should be reversed)
+
 \end{itemize}
 
 \section{Reading List}
