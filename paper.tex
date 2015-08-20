@@ -289,7 +289,7 @@ Manual root cause analysis case studies.
 
 \begin{itemize}
 \item Use SAF to analyze Openstack logs. All related files can be found under
-  ``declarative-log-analytics/codebase/case_study/novaboot''.
+  ``declarative-log-analytics/codebase/case\_study/novaboot''.
   \begin{itemize}
   \item Identify the normal execution logs to explore: osloganal/data/logs/new\_testbed24/novadelete/delete-0.log
   \item Convert the log in JSON into an SQLite3 database. (done)
@@ -357,6 +357,58 @@ model.
 \item In the log trace of boot-0.log, the message of template 17 and the message
   of template 15 share the same timestamp. This causes the log trace to match no
   template in the novaboot models. (17 and 15 should be reversed)
+
+\end{itemize}
+
+\section{Code review comments}
+\label{sec:codereview}
+
+\begin{itemize}
+\item Code logic: 
+  \begin{enumerate}
+  \item Create the event database from the database file (line 175).
+  \item Create the global symbol table
+  \item Parse the given model
+    \begin{enumerate}
+    \item parse header
+    \item parse behavior
+    \item parse model 
+    \item (What's the difference between model and behavior?A: Model = combination of behaviors)
+    \end{enumerate}
+  \item Apply the parsed model over the data to get instances.
+    \begin{enumerate}
+    \item Create StateManager
+    \item Create datahandle
+    \item Create ModelProcessor
+      \begin{enumerate}
+      \item StateProcessor
+      \item BehaviorConstraintProcessor
+      \item LTLOpsProcessor
+      \item ITLOpsProcessor
+      \item LogicalOpsProcessor
+      \end{enumerate}
+    \item Apply models to the event database to fetch satisfying data (line 287)
+    \end{enumerate}
+  \end{enumerate}
+\item Error: In behaviorinstance.py: comments for function definitions
+  ``set\_dependee'' and ``get\_dependee''. Instead of ``the pointer to the
+  behavior object'', should be ``the pointer to the dependent instance''.
+\item Error: In dataabstraction.py: comments for the function
+  ``get\_binstances\_satisfying\_state''. Instead of ``Returns a
+  BehaviorInstanceList of instances'', should be ``Returns a
+  BehaviorInstance(EventGroup) of instances''
+\item Observation: To specify dependent fields in a state proposition, the field
+  should have been mentioned by the state on which the current state is
+  dependent. For example, ``event\_1 = {ip = \$1} event\_2 = {ip =
+    event\_1.ip}'' is acceptable. But in ``event\_1 = {uuid = \$1} event\_2 = {ip =
+    event\_1.ip}'', ``event\_2'' will be recognized as an independent state.
+\item Question: Why is it that when looking for satisfying instances against a
+  specific behavior, \saf{} will produce several sub-behaviors which is copy of
+  the main behavior? For example, when processing NOVABOOTCOPY, \saf{} produces
+  a number of copies: USERMODELS.NOVABOOTCOPY.p381526;
+  USERMODELS.NOVABOOTCOPY.b;
+  USERMODELS.QUALIFIER;USERMODELS.NOVABOOTCOPY.p551410;
+  USERMODELS.NOVABOOTCOPY.p536560; USERMODELS.NOVABOOTCOPY.p989555?
 
 \end{itemize}
 

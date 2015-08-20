@@ -34,7 +34,7 @@ event_5 = {template_id = 10, ip = $event_4.ip}
 event_6 = {template_id = 11, uuid = $event_5.uuid}
 event_7 = {template_id = 12, uuid = $event_6.uuid1}
 event_8 = {template_id = 13, ip = $event_7.ip}
-event_9 = {template_id = 9}
+event_9 = {template_id = 2}
 event_10 = {template_id = 7}
 event_11 = {template_id = 14}
 event_12 = {template_id = 17}
